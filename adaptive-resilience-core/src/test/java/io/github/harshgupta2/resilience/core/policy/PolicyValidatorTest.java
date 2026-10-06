@@ -1,5 +1,6 @@
 package io.github.harshgupta2.resilience.core.policy;
 
+import io.github.harshgupta2.resilience.core.TestPolicies;
 import io.github.harshgupta2.resilience.core.domain.Range;
 import io.github.harshgupta2.resilience.core.domain.Slo;
 import io.github.harshgupta2.resilience.core.domain.TargetConfig;

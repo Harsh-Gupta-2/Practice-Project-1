@@ -11,7 +11,7 @@ Load ke time CPU low rehta hai par throughput gir jaata hai, kyunki threads DB/H
 Poora design: [`docs/PLAN.md`](docs/PLAN.md).
 
 ## Status
-**MVP 1, PR 2: core domain model + policy validation.** Guard rules agle PR mein. Build order `docs/PLAN.md` ke section J mein hai.
+**MVP 1, PR 3: deterministic guard.** Progress: [`docs/PROGRESS.md`](docs/PROGRESS.md). Build order `docs/PLAN.md` ke section J mein hai.
 
 ## Modules
 | Module | Kya hai |

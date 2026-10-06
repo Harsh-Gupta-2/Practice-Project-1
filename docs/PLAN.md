@@ -247,15 +247,17 @@ record Decision(
     String llmExplanation, String approvedBy) {}
 ```
 
-**GuardService order (deterministic):**
-1. `FreezeRule` → freeze ho to current config hi rakho.
-2. `ClampRule` → har value ko policy range mein clamp.
-3. `MaxStepRule` → current se ±maxStep% se zyada change nahi.
-4. `DbBudgetRule` → `replicas × poolSizePerPod ≤ dbConnectionBudget`. Na ho to pool ghatao (min tak), phir bhi na ho to replicas ghatao.
-5. `MemoryBudgetRule` → `heapMaxMb + nonHeapMb + threadCount × stackMb + poolSize × perConnOverheadMb ≤ podMemoryLimitMb × safetyFactor`. Na ho to pool/concurrency ghatao.
-6. `CooldownRule` → last apply se cooldown pura nahi hua to change nahi.
-- Har rule `GuardResult(TargetConfig, Optional<String> reason)` return karta hai, reasons `guardSteps` mein jaate hain.
-- Agar clamp ke baad bhi constraints satisfy na hon (policy hi galat hai), to `staticDefault` + alert.
+**GuardService order (deterministic)** (PR 3 mein implement hua; plan ke pehle order se badla, reason neeche):
+1. **Hold checks:** freeze ya cooldown ho to current target rakho, **lekin sirf tab** jab current khud policy follow karta ho. Current range ya DB budget tod raha ho (jaise policy tight hui) to freeze/cooldown mein bhi correct karo, kyunki safety "change mat karo" se upar hai.
+2. **User ke extra rules** (`GuardRule` beans), diye gaye order mein.
+3. **Built-in rules, hamesha last mein aur hamesha saare:**
+   1. `MaxStepRule` (soft): har value current se `max(1, ceil(current × maxStep%))` se zyada nahi badlegi.
+   2. `ClampRule`: har value apni range mein.
+   3. `DbBudgetRule`: `replicas × poolSizePerPod ≤ dbConnectionBudget`. Pehle pool ghatao (min tak), phir bhi na ho to replicas ghatao.
+   4. `MemoryBudgetRule`: `heapMax + nonHeap + threads × stack + pool × perConnOverhead ≤ podMemoryLimit × safetyFactor`. Sirf pool ghatata hai (min tak). Min pool pe bhi fit na ho to WARNING (human ko pod/JVM settings theek karni hongi). Memory profile na ho to "skipped" step likhta hai, chupchaap pass nahi karta.
+- **Order kyun badla:** `MaxStepRule` ko `ClampRule` se pehle rakha, taaki range aur budget (hard rules) hamesha jeetein. Ulta order hota to step rule value ko range ke bahar wapas le ja sakta tha.
+- Har rule `GuardStep(TargetConfig, Optional<String> reason)` return karta hai; reasons `GuardOutcome.steps` mein audit ke liye jaate hain.
+- **Invalid policy** → `IllegalArgumentException` (caller ko policy input pe hi validate karni hai). Valid policy ke saath result hamesha range + DB budget ke andar hota hai; agar kabhi na ho to `IllegalStateException` (bug, apply nahi hoga).
 
 **Concurrency in the controller:**
 - Har region ka cycle alag `ScheduledExecutorService` task ya virtual thread mein. Ek region fail ho to doosre ko asar nahi (region isolation).
