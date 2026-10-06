@@ -227,7 +227,8 @@ record RegionPolicy(
     Mode mode,                         // SHADOW / RECOMMEND / AUTO
     TargetConfig staticDefault,        // fallback
     String businessCriticality,        // HIGH / MEDIUM / LOW
-    Slo slo, int version, String updatedBy) {}
+    Slo slo) {}
+// version / updatedBy policy store (controller) ka hissa hain, core record ka nahi (PR 2 mein decide hua).
 
 record MetricSnapshot(
     String region, String podId, Instant at,
