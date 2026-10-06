@@ -1,5 +1,6 @@
 package io.github.harshgupta2.resilience.core.policy;
 
+import io.github.harshgupta2.resilience.core.TestPolicies;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
