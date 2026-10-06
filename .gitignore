@@ -1,0 +1,18 @@
+# Maven
+target/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local secrets (API keys and tokens come from environment variables only)
+.env
+*.env
