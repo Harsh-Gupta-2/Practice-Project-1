@@ -206,7 +206,7 @@ config/        AppConfig, LlmProperties
 
 **Core interfaces:**
 ```java
-interface Advisor { Suggestion suggest(RegionSignals s, RegionPolicy p); }
+interface Advisor { Suggestion suggest(RegionSignals s, RegionPolicy p, TargetConfig current); }  // current PR 4 mein joda
 interface LlmClient { Optional<LlmSuggestion> advise(LlmAdviceRequest req); }  // empty on timeout/error/refusal
 interface GuardRule { GuardResult apply(Proposed p, GuardContext ctx); }      // chain of rules, order fixed
 interface Actuator { ApplyResult apply(String region, TargetConfig target); }
