@@ -6,8 +6,8 @@ Percentage = **merged PRs ÷ total planned PRs**. Total abhi 24 hai (MVP 1 ke 7 
 |---|---|---|---|
 | 1 | 1 | Maven skeleton, CI, docs | ✅ Merged ([#1](https://github.com/Harsh-Gupta-2/Practice-Project-1/pull/1)) |
 | 2 | 1 | Core domain model + policy validation | ✅ Merged ([#2](https://github.com/Harsh-Gupta-2/Practice-Project-1/pull/2)) |
-| 3 | 1 | Guard rules + GuardService + property tests | 🔄 In review |
-| 4 | 1 | RuleBasedAdvisor | ⏳ |
+| 3 | 1 | Guard rules + GuardService + property tests | ✅ Merged ([#3](https://github.com/Harsh-Gupta-2/Practice-Project-1/pull/3)) |
+| 4 | 1 | RuleBasedAdvisor | 🔄 In review |
 | 5 | 1 | Starter: properties, auto-config, shadow mode, metrics, actuator endpoint | ⏳ |
 | 6 | 1 | Concurrency limiter integration | ⏳ |
 | 7 | 1 | Demo service + load script + quick start | ⏳ |
@@ -29,4 +29,4 @@ Percentage = **merged PRs ÷ total planned PRs**. Total abhi 24 hai (MVP 1 ke 7 
 | 23 | 4 | BOM + docs | ⏳ |
 | 24 | 4 | Publishing (GitHub Packages, then Maven Central) | ⏳ |
 
-**Done: 2 / 24 = 8%** (yeh PR merge hone par 3 / 24 = 13%).
+**Done: 3 / 24 = 13%** (yeh PR merge hone par 4 / 24 = 17%).
